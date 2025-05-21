@@ -20,9 +20,9 @@ class User(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('login.html')
+    return render_template('auth.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
     email = data.get('email')
@@ -34,11 +34,8 @@ def login():
         return jsonify({'success': True})
     return jsonify({'success': False, 'message': 'Invalid credentials'})
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/api/register', methods=['POST'])
 def register():
-    if request.method == 'GET':
-        return render_template('register.html')
-    
     data = request.get_json()
     
     if User.query.filter_by(email=data['email']).first():
@@ -59,7 +56,15 @@ def register():
         db.session.rollback()
         return jsonify({'success': False, 'message': str(e)})
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return jsonify(error=str(e)), 404
+
+@app.route('/dashboard')
+def dashboard():
+    return "Dashboard - Coming Soon"
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug = True)
+    app.run(debug=True)

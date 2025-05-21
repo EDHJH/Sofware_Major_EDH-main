@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="split-container">
+            <div class="left-side">
+                <div class="forms-container">
+                    <div class="form-box active" id="loginForm">
+                        <h1>Welcome Back To The Ultimate Builder Website!</h1>
+                        <form onsubmit="handleLogin(event)">
+                            <div class="input-group">
+                                <input type="email" required placeholder=" ">
+                                <label>Email</label>
+                                <i class="ri-mail-fill icon-right"></i>
+                            </div>
+                            <div class="input-group">
+                                <input type="password" required placeholder=" ">
+                                <label>Password</label>
+                                <i class="ri-eye-off-fill icon-right"></i>
+                            </div>
+                            <button type="submit">Login</button>
+                        </form>
+                        <p>Don't have an account? <a href="#" onclick="toggleForm(event)">Register here</a></p>
+                    </div>
+
+                    <div class="form-box" id="registerForm">
+                        <h1>New To The Website? Create A New Account!</h1>
+                        <form onsubmit="handleRegister(event)">
+                            <div class="input-group">
+                                <input type="text" required placeholder=" ">
+                                <label>Username</label>
+                                <i class="ri-user-fill icon-right"></i>
+                            </div>
+                            <div class="input-group">
+                                <input type="email" required placeholder=" ">
+                                <label>Email</label>
+                                <i class="ri-mail-fill icon-right"></i>
+                            </div>
+                            <div class="input-group">
+                                <input type="password" required placeholder=" ">
+                                <label>Password</label>
+                                <i class="ri-eye-off-fill icon-right"></i>
+                            </div>
+                            <button type="submit">Register</button>
+                        </form>
+                        <p>Already have an account? <a href="#" onclick="toggleForm(event)">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='assets/auth-bg.jpg') }}" alt="Background" class="background-image">
+                    <img src="{{ url_for('static', filename='assets/mask-blob.svg') }}" alt="Mask" class="mask-image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>
