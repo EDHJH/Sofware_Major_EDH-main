@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
 
 :root {
   --first-color: hsl(208, 92%, 54%);
@@ -8,7 +9,7 @@
   --text-color: hsl(220, 15%, 66%);
   --body-color: hsl(0, 0%, 100%);
   --container-color: hsl(220, 50%, 97%);
-  --body-font: "Poppins", sans-serif;
+  --body-font: "Nunito", system-ui, -apple-system, sans-serif;
 }
 
 * {
@@ -54,7 +55,7 @@ body {
 
 .input-box input {
     width: 100%;
-    padding: 20px 40px 20px 20px;
+    padding: 20px 40px 15px 19px;
     border: 2px solid var(--container-color);
     border-radius: 12px;
     background-color: var(--container-color);
