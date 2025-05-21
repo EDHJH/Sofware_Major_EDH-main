@@ -27,7 +27,7 @@
                             </div>
                             <button type="submit">Login</button>
                         </form>
-                        <p>Don't have an account? <a href="#" onclick="toggleForm(event)">Register here</a></p>
+                        <p>Don't have an account?  <a href="#" onclick="toggleForm(event)"> Register here</a></p>
                     </div>
 
                     <div class="form-box" id="registerForm">
@@ -44,13 +44,20 @@
                                 <i class="ri-mail-fill icon-right"></i>
                             </div>
                             <div class="input-group">
-                                <input type="password" required placeholder=" ">
+                                <input type="password" required placeholder=" " id="registerPassword">
                                 <label>Password</label>
                                 <i class="ri-eye-off-fill icon-right"></i>
+                                <div class="password-requirements">
+                                    <p class="requirement" data-requirement="length">At least 10 characters</p>
+                                    <p class="requirement" data-requirement="uppercase">One uppercase letter</p>
+                                    <p class="requirement" data-requirement="lowercase">One lowercase letter</p>
+                                    <p class="requirement" data-requirement="number">One number</p>
+                                    <p class="requirement" data-requirement="special">One special character</p>
+                                </div>
                             </div>
                             <button type="submit">Register</button>
                         </form>
-                        <p>Already have an account? <a href="#" onclick="toggleForm(event)">Login here</a></p>
+                        <p>Already have an account?  <a href="#" onclick="toggleForm(event)"> Login here</a></p>
                     </div>
                 </div>
             </div>

@@ -24,7 +24,7 @@ async function handleLogin(event) {
 
         const data = await response.json();
         if (data.success) {
-            window.location.href = '/dashboard';
+            window.location.replace('/dashboard');  // Changed from href to replace
         } else {
             alert('Login failed: ' + data.message);
         }
@@ -34,12 +34,54 @@ async function handleLogin(event) {
     }
 }
 
+function validatePassword(password) {
+    const minLength = password.length >= 10;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    
+    return {
+        isValid: minLength && hasUpperCase && hasLowerCase && hasNumber && hasSpecial,
+        errors: {
+            minLength,
+            hasUpperCase,
+            hasLowerCase,
+            hasNumber,
+            hasSpecial
+        }
+    };
+}
+
+function validatePasswordRequirement(password) {
+    const requirements = {
+        length: password.length >= 10,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        special: /[!@#$%^&*(),.?_":{}|<>]/.test(password)
+    };
+
+    Object.entries(requirements).forEach(([key, valid]) => {
+        const requirement = document.querySelector(`[data-requirement="${key}"]`);
+        if (requirement) {
+            requirement.classList.toggle('valid', valid);
+        }
+    });
+
+    return Object.values(requirements).every(Boolean);
+}
+
 async function handleRegister(event) {
     event.preventDefault();
     const form = event.target;
     const username = form.querySelector('input[type="text"]').value;
     const email = form.querySelector('input[type="email"]').value;
     const password = form.querySelector('input[type="password"]').value;
+
+    if (!validatePasswordRequirement(password)) {
+        return;
+    }
 
     try {
         const response = await fetch('/api/register', {
@@ -48,16 +90,15 @@ async function handleRegister(event) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                firstname: username,
-                lastname: "",
-                email,
-                password
+                username: username,
+                email: email,
+                password: password
             })
         });
 
         const data = await response.json();
         if (data.success) {
-            window.location.href = '/dashboard';
+            window.location.replace('/dashboard');  // Changed from href to replace
         } else {
             alert('Registration failed: ' + data.message);
         }
@@ -86,4 +127,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    const registerPassword = document.getElementById('registerPassword');
+    if (registerPassword) {
+        registerPassword.addEventListener('input', (e) => {
+            validatePasswordRequirement(e.target.value);
+        });
+    }
 });
