@@ -4,12 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
 <body>
-    <h1>Welcome to the Home Page</h1>
-    <button onclick="logout()">Logout</button>
+    <header class="header">
+        <a href="/dashboard" class="header__logo-container">
+            <img src="{{ url_for('static', filename='assets/Logo-short.png') }}" alt="Logo" class="header__logo-img">
+            <span class="header__logo">StatSouls</span>
+        </a>
+        <nav class="header__nav">
+            <a href="#" class="nav__link">Products</a>
+            <a href="#" class="nav__link">About</a>
+            <a href="#" class="nav__link">Contact</a>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </nav>
+    </header>
+
+    <div class="parallax-container">
+        <video class="parallax-bg" autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='assets/main_mov.mp4') }}" type="video/mp4">
+        </video>
+        <div class="content">
+            <h1>Welcome to the Home Page</h1>
+            <button class="explore-btn">Explore →</button>
+        </div>
+    </div>
+
+    <section class="main-content">
+        <h2>Welcome to Ultimate Builder</h2>
+        <p>Discover the perfect balance of creativity and precision in our custom PC building experience. Whether you're a gaming enthusiast, content creator, or professional developer, we're here to help you craft the perfect machine for your needs.</p>
+    </section>
 
     <script>
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            const parallax = document.querySelector('.parallax-bg');
+            const scrolled = window.pageYOffset;
+            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+
         async function logout() {
             const response = await fetch('/api/logout');
             const data = await response.json();
