@@ -6,6 +6,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
@@ -14,9 +15,21 @@
             <span class="header__logo">StatSouls</span>
         </a>
         <nav class="header__nav">
-            <a href="#" class="nav__link">Products</a>
-            <a href="#" class="nav__link">About</a>
-            <a href="#" class="nav__link">Contact</a>
+            <a href="#" class="nav__link">Build Editor</a>
+            <a href="#" class="nav__link">AI Chatbot</a>
+            <div class="nav__dropdown">
+                <a href="#" class="nav__link dropdown-toggle">Eldenring Wiki</a>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item">Weapons <i class="ri-facebook-fill"></i></a>
+                    <a href="#" class="dropdown-item">Spells <i class="ri-facebook-fill"></i></a>
+                    <a href="#" class="dropdown-item">Armour <i class="ri-facebook-fill"></i></a>
+                    <a href="#" class="dropdown-item">Incantations <i class="ri-facebook-fill"></i></a>
+                    <a href="#" class="dropdown-item">Talisman <i class="ri-facebook-fill"></i></a>
+                    <a href="#" class="dropdown-item">Ash of War <i class="ri-facebook-fill"></i></a>
+                    <a href="#" class="dropdown-item">Spirit Ashes <i class="ri-facebook-fill"></i></a>
+                </div>
+            </div>
+            <a href="#" class="nav__link">About Us</a>
             <button onclick="logout()" class="logout-btn">Logout</button>
         </nav>
     </header>
@@ -26,7 +39,6 @@
             <source src="{{ url_for('static', filename='assets/main_mov.mp4') }}" type="video/mp4">
         </video>
         <div class="content">
-            <h1>Welcome to the Home Page</h1>
             <button class="explore-btn">Explore →</button>
         </div>
     </div>
