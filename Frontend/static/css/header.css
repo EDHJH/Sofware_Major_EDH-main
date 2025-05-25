@@ -157,6 +157,18 @@
     vertical-align: middle;
 }
 
+.dropdown-icon {
+    width: 1em;  /* Reduced from 1.2em to match icon size */
+    height: 1em;  /* Reduced from 1.2em to match icon size */
+    margin-left: 10px;
+    object-fit: contain;
+    vertical-align: middle;  /* Added for better alignment */
+}
+
+.dropdown-item:hover .dropdown-icon {
+    filter: brightness(1.2);
+}
+
 @media (max-width: 768px) {
     .header {
         flex-wrap: wrap;
