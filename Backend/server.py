@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps  # Add this import
 import os
 import re
 
@@ -103,6 +104,7 @@ def page_not_found(e):
     return jsonify(error=str(e)), 404
 
 def login_required(f):
+    @wraps(f)  # Add this decorator
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
             return redirect(url_for('index'))
@@ -114,6 +116,21 @@ def dashboard():
     if 'user_id' not in session:
         return redirect(url_for('index'))
     return render_template('home.html')
+
+@app.route('/build-editor')
+@login_required
+def build_editor():
+    return render_template('build-editor.html')
+
+@app.route('/ai-chatbot')
+@login_required
+def ai_chatbot():
+    return render_template('ai-chatbot.html')
+
+@app.route('/about')
+@login_required
+def about():
+    return render_template('about.html')
 
 # Move db.create_all() here to ensure model is defined first
 with app.app_context():
