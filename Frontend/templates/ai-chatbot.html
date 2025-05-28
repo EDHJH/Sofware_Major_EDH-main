@@ -7,24 +7,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
 </head>
 <body>
-    <header class="header">
-        <a href="/dashboard" class="header__logo-container">
-            <img src="{{ url_for('static', filename='assets/Logo-short.png') }}" alt="Logo" class="header__logo-img">
-            <span class="header__logo">StatSouls</span>
-        </a>
-        <nav class="header__nav">
+     <nav class="header__nav">
             <a href="/build-editor" class="nav__link">Build Editor</a>
             <a href="/ai-chatbot" class="nav__link">AI Chatbot</a>
             <div class="nav__dropdown">
-                <a href="#" class="nav__link dropdown-toggle">Eldenring Wiki</a>
+                <a href="https://eldenring.wiki.fextralife.com/Elden+Ring+Wiki" class="nav__link dropdown-toggle">Eldenring Wiki</a>
                 <div class="dropdown-content">
-                    <a href="https://eldenring.fandom.com/wiki/Melee_Armaments" target="_blank" class="dropdown-item">Weapons <i class="ri-sword-line"></i></a>
-                    <a href="https://eldenring.fandom.com/wiki/Sorceries" target="_blank" class="dropdown-item">Spells <i class="ri-book-2-line"></i></a>
-                    <a href="https://eldenring.fandom.com/wiki/Armor" target="_blank" class="dropdown-item">Armour <i class="ri-shield-line"></i></a>
-                    <a href="https://eldenring.fandom.com/wiki/Incantations" target="_blank" class="dropdown-item">Incantations <i class="ri-magic-line"></i></a>
-                    <a href="https://eldenring.fandom.com/wiki/Talismans" target="_blank" class="dropdown-item">Talisman <img src="{{ url_for('static', filename='assets/talisman-icon.png') }}" class="dropdown-icon" alt="talisman"></a>
-                    <a href="https://eldenring.fandom.com/wiki/Ashes_of_War" target="_blank" class="dropdown-item">Ash of War <i class="ri-sword-fill"></i></a>
-                    <a href="https://eldenring.fandom.com/wiki/Spirit_Ashes" target="_blank" class="dropdown-item">Spirit Ashes <i class="ri-ghost-line"></i></a>
+                    <a href="https://eldenring.wiki.fextralife.com/Weapons" target="_blank" class="dropdown-item">Weapons <img src="{{ url_for('static', filename='assets/weapons-icon.png') }}" class="dropdown-icon" alt="weapons"></a>
+                    <a href="https://eldenring.wiki.fextralife.com/Armor" target="_blank" class="dropdown-item">Armour <img src="{{ url_for('static', filename='assets/armor-icon.png') }}" class="dropdown-icon" alt="armor"></a>
+                    <a href="https://eldenring.wiki.fextralife.com/Sorceries" target="_blank" class="dropdown-item">Sorceries <img src="{{ url_for('static', filename='assets/sorceries-icon.png') }}" class="dropdown-icon" alt="sorceries"></a>
+                    <a href="https://eldenring.wiki.fextralife.com/Incantations" target="_blank" class="dropdown-item">Incantations <img src="{{ url_for('static', filename='assets/incantations-icon.png') }}" class="dropdown-icon" alt="incantation"></a>
+                    <a href="https://eldenring.wiki.fextralife.com/Talismans" target="_blank" class="dropdown-item">Talisman <img src="{{ url_for('static', filename='assets/talisman-icon.png') }}" class="dropdown-icon" alt="talisman"></a>
+                    <a href="https://eldenring.wiki.fextralife.com/Ashes+of+War" target="_blank" class="dropdown-item">Ash of War <img src="{{ url_for('static', filename='assets/aow-icon.png') }}" class="dropdown-icon" alt="ash of war"></a>
+                    <a href="https://eldenring.wiki.fextralife.com/Spirit+Ashes" target="_blank" class="dropdown-item">Spirit Ashes <img src="{{ url_for('static', filename='assets/spirit-ashes-icon.png') }}" class="dropdown-icon" alt="spirit ashes"></a>
                 </div>
             </div>
             <a href="/about" class="nav__link">About Us</a>
