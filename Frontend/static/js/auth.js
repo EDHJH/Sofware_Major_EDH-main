@@ -24,13 +24,13 @@ async function handleLogin(event) {
 
         const data = await response.json();
         if (data.success) {
-            window.location.replace('/dashboard');  // Changed from href to replace
+            window.location.replace('/dashboard');
         } else {
-            alert('Login failed: ' + data.message);
+            showError('Login failed: ' + data.message);
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred during login');
+        showError('An error occurred during login. Please try again.');
     }
 }
 
@@ -39,7 +39,7 @@ function validatePassword(password) {
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
-    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?_":{}|<>]/.test(password); // Fixed to match backend
     
     return {
         isValid: minLength && hasUpperCase && hasLowerCase && hasNumber && hasSpecial,
@@ -59,7 +59,7 @@ function validatePasswordRequirement(password) {
         uppercase: /[A-Z]/.test(password),
         lowercase: /[a-z]/.test(password),
         number: /[0-9]/.test(password),
-        special: /[!@#$%^&*(),.?_":{}|<>]/.test(password)
+        special: /[!@#$%^&*(),.?_":{}|<>]/.test(password) // Fixed to match backend
     };
 
     Object.entries(requirements).forEach(([key, valid]) => {
@@ -70,6 +70,50 @@ function validatePasswordRequirement(password) {
     });
 
     return Object.values(requirements).every(Boolean);
+}
+
+function sanitizeText(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function showError(message) {
+    // Replace alert with better UI feedback
+    const sanitizedMessage = sanitizeText(message);
+    
+    // Remove existing error messages
+    const existingError = document.querySelector('.error-message');
+    if (existingError) {
+        existingError.remove();
+    }
+    
+    // Create error element
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.innerHTML = sanitizedMessage;
+    errorDiv.style.cssText = `
+        background-color: #fee;
+        color: #c33;
+        padding: 10px;
+        border: 1px solid #fcc;
+        border-radius: 4px;
+        margin: 10px 0;
+        font-size: 14px;
+    `;
+    
+    // Insert at the top of the active form
+    const activeForm = document.querySelector('.form-box.active');
+    if (activeForm) {
+        activeForm.insertBefore(errorDiv, activeForm.firstChild);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (errorDiv.parentNode) {
+                errorDiv.remove();
+            }
+        }, 5000);
+    }
 }
 
 async function handleRegister(event) {
@@ -98,13 +142,13 @@ async function handleRegister(event) {
 
         const data = await response.json();
         if (data.success) {
-            window.location.replace('/dashboard');  // Changed from href to replace
+            window.location.replace('/dashboard');
         } else {
-            alert('Registration failed: ' + data.message);
+            showError('Registration failed: ' + data.message);
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred during registration');
+        showError('An error occurred during registration. Please try again.');
     }
 }
 
