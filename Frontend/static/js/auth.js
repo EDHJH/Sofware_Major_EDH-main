@@ -10,7 +10,7 @@ function toggleForm(event) {
 async function handleLogin(event) {
     event.preventDefault();
     const form = event.target;
-    const email = form.querySelector('input[type="email"]').value;
+    const identifier = form.querySelector('input[type="text"]').value;
     const password = form.querySelector('input[type="password"]').value;
 
     try {
@@ -19,7 +19,7 @@ async function handleLogin(event) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ identifier, password })
         });
 
         const data = await response.json();

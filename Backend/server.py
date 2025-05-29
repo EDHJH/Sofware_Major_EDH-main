@@ -2,8 +2,12 @@ from flask import Flask, render_template, request, jsonify, session, redirect, u
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps  # Add this import
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import os
 import re
+import secrets
+import datetime
 
 # Update instance path
 instance_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'instance')
@@ -17,9 +21,15 @@ app = Flask(__name__,
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///userdatabase.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = "your-secret-key-here"  # Fixed secret key
+app.config["SECRET_KEY"] = os.getenv('SECRET_KEY', secrets.token_hex(32))
 
 db = SQLAlchemy(app)
+
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
 
 class User(db.Model):
     __tablename__ = 'user'  # Explicitly set table name
@@ -27,6 +37,8 @@ class User(db.Model):
     username = db.Column(db.String(100), nullable=False)  # Changed from firstname
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+    reset_token = db.Column(db.String(100), unique=True)
+    reset_token_expiry = db.Column(db.DateTime)
 
 @app.route('/')
 def index():
@@ -38,10 +50,13 @@ def index():
 def login():
     try:
         data = request.get_json()
-        email = data.get('email')
+        identifier = data.get('identifier')
         password = data.get('password')
         
-        user = User.query.filter_by(email=email).first()
+        # Try to find user by email or username
+        user = User.query.filter(
+            (User.email == identifier) | (User.username == identifier)
+        ).first()
         
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
@@ -131,6 +146,53 @@ def ai_chatbot():
 @login_required
 def about():
     return render_template('about.html')
+
+@app.route('/api/profile', methods=['GET', 'PUT'])
+@login_required
+def profile():
+    if request.method == 'GET':
+        user = User.query.get(session['user_id'])
+        return jsonify({
+            'username': user.username,
+            'email': user.email
+        })
+    else:
+        try:
+            data = request.get_json()
+            user = User.query.get(session['user_id'])
+            if 'username' in data:
+                user.username = data['username']
+            db.session.commit()
+            return jsonify({'success': True})
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/reset-password', methods=['POST'])
+@limiter.limit("5 per hour")
+def request_password_reset():
+    try:
+        data = request.get_json()
+        user = User.query.filter_by(email=data['email']).first()
+        if user:
+            token = secrets.token_urlsafe(32)
+            user.reset_token = token
+            user.reset_token_expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
+            db.session.commit()
+            # TODO: Send email with reset link
+            return jsonify({'success': True})
+        return jsonify({'success': False, 'message': 'Email not found'}), 404
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+# Error handling middleware
+@app.errorhandler(Exception)
+def handle_error(error):
+    code = 500
+    if hasattr(error, 'code'):
+        code = error.code
+    return jsonify({'success': False, 'message': str(error)}), code
 
 # Move db.create_all() here to ensure model is defined first
 with app.app_context():
