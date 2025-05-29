@@ -1,5 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Caudex:wght@400;600;700&display=swap");
 
+:root {
+    --body-color: hsl(0, 0%, 0%);
+    --first-color: hsl(48, 95%, 50%);
+    --first-color-alt: hsl(48, 95%, 60%);
+    --text-color: hsl(48, 95%, 70%);
+    --body-font: "Caudex", system-ui, -apple-system, sans-serif;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: var(--body-font);
+}
+
 .header {
     position: fixed;
     top: 0;
