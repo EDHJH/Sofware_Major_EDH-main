@@ -203,3 +203,11 @@ with app.app_context():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+# 1. first rename branch to feature/header-auth-etc. 
+# 2. merge this branch onto main
+# 3. git switch "branch name"
+# 4. git pull origin main
+
+# option 1: delete the branches outdated (not suggested). Create v2/feature/ui-improvements as an example to distinguish
+# option 2: keep the branches, but git pull origin main
