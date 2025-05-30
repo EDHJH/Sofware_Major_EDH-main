@@ -1,3 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Caudex:wght@400;600;700&display=swap");
+
+:root {
+    --body-color: hsl(0, 0%, 0%);
+    --first-color: hsl(48, 95%, 50%);
+    --first-color-alt: hsl(48, 95%, 60%);
+    --text-color: hsl(48, 95%, 70%);
+    --body-font: "Caudex", system-ui, -apple-system, sans-serif;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: var(--body-font);
+}
+
 .header {
     position: fixed;
     top: 0;
@@ -17,7 +35,7 @@
 .header__logo-container {
     display: flex;
     align-items: center;
-    gap: 16px;  /* 1rem = 16px */
+    gap: 16px;  
     text-decoration: none;  /* Remove link underline */
     transition: opacity 0.3s ease;  /* Add hover effect */
 }
@@ -32,8 +50,8 @@
 }
 
 .header__logo {
-    color: hsl(43, 90%, 34%);  /* Matches auth first-color */
-    font-size: 1.5rem;
+    color: hsl(43, 90%, 34%);
+    font-size: 24px;  /* Changed from 1.5rem */
     font-weight: 700;
     text-decoration: none;
 }
@@ -51,10 +69,10 @@
     color: hsl(43, 90%, 34%);
     text-decoration: none;
     font-weight: 500;
-    transition: all 0.3s ease;  /* Changed from color to all */
-    padding: 0.5rem 0.8rem;
-    position: relative;  /* Added for hover effect */
-    overflow: hidden;    /* Added for hover effect */
+    transition: all 0.3s ease;
+    padding: 8px 12.8px;
+    position: relative;
+    overflow: hidden;
 }
 
 .nav__link:hover {
@@ -79,7 +97,8 @@
 }
 
 .logout-btn {
-    padding: 0.5rem 1.5rem;
+    font-family: 'Caudex', serif;
+    padding: 8px 24px;  /* Changed from 0.5rem 1.5rem */
     background-color: hsl(43, 90%, 34%);  /* Matches auth first-color */
     border: none;
     border-radius: 24px;
@@ -87,8 +106,8 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-left: 0.5rem;  /* Added left margin */
-    margin-right: 1rem;  /* Added right margin */
+    margin-left: 8px;   /* Changed from 0.5rem */
+    margin-right: 16px; /* Changed from 1rem */
     transform: scale(1);
 }
 
@@ -135,7 +154,7 @@
 
 .dropdown-item i {
     margin-left: 10px;
-    font-size: 1.2em;
+    font-size: 19.2px;  /* Changed from 1.2em */
     color: hsl(43, 90%, 34%);
     opacity: 1;  /* Ensure full opacity */
 }
@@ -151,15 +170,15 @@
 
 .dropdown-toggle::after {
     content: '▼';
-    font-size: 0.7em;
+    font-size: 11.2px;  /* Changed from 0.7em */
     margin-left: 5px;
     display: inline-block;
     vertical-align: middle;
 }
 
 .dropdown-icon {
-    width: 1em;  /* Reduced from 1.2em to match icon size */
-    height: 1em;  /* Reduced from 1.2em to match icon size */
+    width: 16px;  /* Changed from 1em */
+    height: 16px; /* Changed from 1em */
     margin-left: 10px;
     object-fit: contain;
     vertical-align: middle;  /* Added for better alignment */
@@ -173,7 +192,7 @@
     .header {
         flex-wrap: wrap;
         justify-content: center;
-        padding: 0.5rem;
+        padding: 8px;  /* Changed from 0.5rem */
     }
 
     .header__nav {

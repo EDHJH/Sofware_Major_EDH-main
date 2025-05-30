@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot - StatSouls</title>
+    <title>Document</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
 </head>
 <body>
-    <header class="header">
+     <header class="header">
         <a href="/dashboard" class="header__logo-container">
             <img src="{{ url_for('static', filename='assets/Logo-short.png') }}" alt="Logo" class="header__logo-img">
             <span class="header__logo">StatSouls</span>
@@ -32,19 +33,7 @@
         </nav>
     </header>
 
-    <main style="margin-top: 100px; padding: 20px;">
-        <h1>AI Chatbot</h1>
-        <p>AI Chatbot page content coming soon...</p>
-    </main>
-
-    <script>
-        async function logout() {
-            const response = await fetch('/api/logout');
-            const data = await response.json();
-            if (data.success) {
-                window.location.href = '/';
-            }
-        }
-    </script>
+    {% block content %}
+    {% endblock %}
 </body>
 </html>

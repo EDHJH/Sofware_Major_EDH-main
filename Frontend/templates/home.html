@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,6 @@
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
@@ -65,4 +64,39 @@
         }
     </script>
 </body>
-</html>
+</html> -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="parallax-container">
+        <video class="parallax-bg" autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='assets/main_mov.mp4') }}" type="video/mp4">
+        </video>
+        <div class="content">
+            <button class="explore-btn">Explore →</button>
+        </div>
+    </div>
+
+    <section class="main-content">
+        <h2>Welcome to Ultimate Builder</h2>
+        <p>Discover the perfect balance of creativity and precision in our custom PC building experience. Whether you're a gaming enthusiast, content creator, or professional developer, we're here to help you craft the perfect machine for your needs.</p>
+    </section>
+
+    <script>
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            const parallax = document.querySelector('.parallax-bg');
+            const scrolled = window.pageYOffset;
+            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+
+        async function logout() {
+            const response = await fetch('/api/logout');
+            const data = await response.json();
+            if (data.success) {
+                window.location.href = '/';
+            }
+        }
+    </script>
+{% endblock %}
