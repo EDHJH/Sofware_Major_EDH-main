@@ -28,10 +28,20 @@
                     <a href="https://eldenring.wiki.fextralife.com/Spirit+Ashes" target="_blank" class="dropdown-item">Spirit Ashes <img src="{{ url_for('static', filename='assets/spirit-ashes-icon.png') }}" class="dropdown-icon" alt="spirit ashes"></a>
                 </div>
             </div>
-            <a href="/about" class="nav__link">About Us</a>
+            <a href="/about" class="nav__link">Simulation</a>
             <button onclick="logout()" class="logout-btn">Logout</button>
         </nav>
     </header>
+   
+   <script>
+        async function logout() {
+            const response = await fetch('/api/logout');
+            const data = await response.json();
+            if (data.success) {
+                window.location.href = '/';
+            }
+        }
+    </script>
 
     {% block content %}
     {% endblock %}
