@@ -19,7 +19,9 @@ app = Flask(__name__,
     static_folder='../Frontend/static',
     instance_path=instance_path)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///userdatabase.db"
+# Update the database path to be in the instance folder
+db_path = os.path.join(instance_path, 'userdatabase.db')
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY', secrets.token_hex(32))
 
@@ -194,14 +196,14 @@ def handle_error(error):
         code = error.code
     return jsonify({'success': False, 'message': str(error)}), code
 
-# Move db.create_all() here to ensure model is defined first
-with app.app_context():
-    # Drop all tables and recreate them
-    db.drop_all()
-    db.create_all()
-    print("Database tables recreated successfully")  # Debug print
+# Move db.create_all() into a function to ensure proper context
+def init_db():
+    with app.app_context():
+        db.create_all()
+        print("Database initialized successfully")
 
 if __name__ == '__main__':
+    init_db()  # Initialize database before running the app
     app.run(debug=True)
 
 # 1. first rename branch to feature/header-auth-etc. 
