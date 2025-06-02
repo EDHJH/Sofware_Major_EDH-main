@@ -28,6 +28,22 @@
                             </div>
                             <button type="submit">Login</button>
                         </form>
+                        
+                        <div class="social-login-separator">
+                            <span>or continue with</span>
+                        </div>
+                        
+                        <div class="social-login-buttons">
+                            <button onclick="handleGoogleLogin()" class="social-login-button google">
+                                <i class="ri-google-fill"></i>
+                                Google
+                            </button>
+                            <button onclick="handleFacebookLogin()" class="social-login-button facebook">
+                                <i class="ri-facebook-fill"></i>
+                                Facebook
+                            </button>
+                        </div>
+
                         <p>Don't have an account?  <a href="#" onclick="toggleForm(event)"> Register here</a></p>
                     </div>
 

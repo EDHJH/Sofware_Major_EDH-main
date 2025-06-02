@@ -57,10 +57,10 @@ body {
 
 .auth-logo {
     position: absolute;
-    top: 0px;
+    top: 5px; /* Reduced from 10px */
     left: 50%;
     transform: translateX(-50%);
-    max-width: 300px;
+    max-width: 300px; /* Increased from 250px */
     height: auto;
     z-index: 2;
 }
@@ -69,8 +69,8 @@ body {
     position: relative;
     width: 100%;
     max-width: 500px;
-    padding: 0 20px;  /* Added padding */
-    margin-top: -40vh; /* Adjusted from -60vh */
+    padding: 0 20px;
+    margin-top: -35vh; /* Changed from -20vh to move content higher up */
 }
 
 .form-box {
@@ -96,15 +96,15 @@ body {
 
 .form-box h1 {
     text-align: center;
-    margin-bottom: 40px;  /* Increased margin for better spacing */
-    font-size: 32px;  /* Increased font size */
+    margin-bottom: 25px; /* Reduced from 40px */
+    font-size: 28px;  /* Slightly reduced from 32px */
     font-weight: 700;
     color: var(--title-color);
 }
 
 .input-group {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 20px; /* Reduced from 30px */
     width: 100%;
 }
 
@@ -167,7 +167,7 @@ input:focus ~ i {
 
 button[type="submit"] {
     width: 100%;
-    padding: 24px;
+    padding: 20px; /* Reduced from 24px */
     background: var(--first-color);
     color: var(--white-color);
     border: none;
@@ -175,7 +175,7 @@ button[type="submit"] {
     font-weight: 600;
     cursor: pointer;
     transition: background-color .4s, box-shadow .4s;
-    margin: 20px 0;
+    margin: 15px 0; /* Reduced from 20px */
 }
 
 button[type="submit"]:hover {
@@ -295,4 +295,70 @@ a:hover {
 .requirement.valid::before {
     content: "✓";
     color: #4CAF50;
+}
+
+.social-login-separator {
+    text-align: center;
+    margin: 5px 0; /* Reduced from 20px */
+    position: relative;
+}
+
+.social-login-separator::before,
+.social-login-separator::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background-color: var(--text-color);
+    opacity: 0.3;
+}
+
+.social-login-separator::before {
+    left: 0;
+}
+
+.social-login-separator::after {
+    right: 0;
+}
+
+.social-login-separator span {
+    color: var(--text-color);
+    font-size: 14px;
+    padding: 0 10px;
+}
+
+.social-login-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px; /* Reduced from 20px */
+}
+
+.social-login-button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--container-color);
+    background: var(--container-color);
+    color: var(--white-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.social-login-button i {
+    font-size: 18px;
+}
+
+.social-login-button.google:hover {
+    background: #4285f4;
+    border-color: #4285f4;
+}
+
+.social-login-button.facebook:hover {
+    background: #1877f2;
+    border-color: #1877f2;
 }

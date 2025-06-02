@@ -108,6 +108,48 @@ async function handleRegister(event) {
     }
 }
 
+async function handleGoogleLogin() {
+    try {
+        const response = await fetch('/api/auth/google', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            window.location.replace(data.authUrl);
+        } else {
+            alert('Google login failed: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during Google login');
+    }
+}
+
+async function handleFacebookLogin() {
+    try {
+        const response = await fetch('/api/auth/facebook', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            window.location.replace(data.authUrl);
+        } else {
+            alert('Facebook login failed: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during Facebook login');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Add password toggle functionality for both login and register forms
     const loginForm = document.getElementById('loginForm');
