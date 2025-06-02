@@ -96,15 +96,15 @@ body {
 
 .form-box h1 {
     text-align: center;
-    margin-bottom: 25px; /* Reduced from 40px */
-    font-size: 28px;  /* Slightly reduced from 32px */
+    margin-bottom: 25px;
+    font-size: 28px;  
     font-weight: 700;
     color: var(--title-color);
 }
 
 .input-group {
     position: relative;
-    margin-bottom: 20px; /* Reduced from 30px */
+    margin-bottom: 20px; 
     width: 100%;
 }
 
@@ -120,7 +120,6 @@ body {
     background-color: transparent;
 }
 
-/* Input focus and filled state styles */
 .input-group input:focus ~ label,
 .input-group input:not(:placeholder-shown) ~ label {
     top: 7px;
@@ -299,7 +298,7 @@ a:hover {
 
 .social-login-separator {
     text-align: center;
-    margin: 5px 0; /* Reduced from 20px */
+    margin: 5px 0;
     position: relative;
 }
 
@@ -331,7 +330,7 @@ a:hover {
 .social-login-buttons {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px; /* Reduced from 20px */
+    margin-bottom: 15px;
 }
 
 .social-login-button {
@@ -354,11 +353,11 @@ a:hover {
 }
 
 .social-login-button.google:hover {
-    background: #4285f4;
-    border-color: #4285f4;
+    background: hsl(43, 90%, 34%);
+    border-color: hsl(43, 90%, 34%);
 }
 
 .social-login-button.facebook:hover {
-    background: #1877f2;
-    border-color: #1877f2;
+    background: hsl(43, 90%, 34%);
+    border-color: hsl(43, 90%, 34%);
 }
