@@ -29,6 +29,10 @@ class ChatBot:
         - Talisman choices
         - Spell/incantation recommendations if applicable
         - Basic combat strategy
+
+        With your respond format:
+        1. Use multiple paragraphs if the sentence is extensively long
+        2. Use dotpoints and other listings if you need to
         """
         
         try:
