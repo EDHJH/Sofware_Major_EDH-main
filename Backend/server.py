@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from functools import wraps  # Add this import
+from functools import wraps
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
