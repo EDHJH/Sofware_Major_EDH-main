@@ -22,6 +22,7 @@
     const input = document.getElementById('chat-input');
     const sendButton = document.getElementById('send-button');
     const messagesContainer = document.getElementById('chat-messages');
+    let isWaitingForResponse = false;
 
     // Auto-resize textarea
     input.addEventListener('input', function() {
@@ -39,17 +40,40 @@
 
     async function sendMessage() {
         const message = input.value.trim();
-        if (!message) return;
+        if (!message || isWaitingForResponse) return;
 
         addMessage(message, true);
         input.value = '';
         input.style.height = 'auto';
-
-        // TODO: Add API call to backend here
-        // For now, just show a mock response
-        setTimeout(() => {
-            addMessage("I'm still being developed. Check back soon!", false);
-        }, 1000);
+        
+        isWaitingForResponse = true;
+        sendButton.disabled = true;
+        
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message })
+            });
+            
+            const data = await response.json();
+            console.log('API Response:', data); // Add logging
+            
+            if (response.ok && data.success) {
+                addMessage(data.message, false);
+            } else {
+                console.error('API Error:', data);
+                addMessage(`Error: ${data.message || 'Unknown error occurred'}`, false);
+            }
+        } catch (error) {
+            console.error('Request Error:', error);
+            addMessage("Sorry, I couldn't process your request. Please try again.", false);
+        } finally {
+            isWaitingForResponse = false;
+            sendButton.disabled = false;
+        }
     }
 
     sendButton.addEventListener('click', sendMessage);

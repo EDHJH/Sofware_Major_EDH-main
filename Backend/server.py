@@ -8,6 +8,11 @@ import os
 import re
 import secrets
 import datetime
+from ai_chat import ChatBot  # Updated import statement
+from dotenv import load_dotenv
+
+# Load environment variables before initializing the app
+load_dotenv()
 
 # Update instance path
 instance_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'instance')
@@ -32,6 +37,12 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"]
 )
+
+try:
+    chatbot = ChatBot()
+except Exception as e:
+    print(f"Error initializing ChatBot: {str(e)}")
+    chatbot = None
 
 class User(db.Model):
     __tablename__ = 'user'  # Explicitly set table name
@@ -186,6 +197,27 @@ def request_password_reset():
         return jsonify({'success': False, 'message': 'Email not found'}), 404
     except Exception as e:
         db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/chat', methods=['POST'])
+@login_required
+def chat():
+    if chatbot is None:
+        return jsonify({'success': False, 'message': 'ChatBot is not properly initialized'}), 500
+        
+    try:
+        data = request.get_json()
+        message = data.get('message')
+        if not message:
+            return jsonify({'success': False, 'message': 'No message provided'}), 400
+            
+        app.logger.info(f"Received chat message: {message}")
+        response = chatbot.get_response(message)
+        app.logger.info(f"AI response: {response}")
+        
+        return jsonify(response)
+    except Exception as e:
+        app.logger.error(f"Chat error: {str(e)}")
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Error handling middleware
