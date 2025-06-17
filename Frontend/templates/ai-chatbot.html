@@ -1,19 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<title>AI Chatbot - StatSouls</title>
+<title>Elden Ring Build Assistant - StatSouls</title>
 <div class="chat-container">
     <div class="chat-header">
-        <h1>StatSouls AI Assistant</h1>
-        <p>Ask me anything about Elden Ring!</p>
+        <h1>Elden Ring Build Assistant</h1>
+        <p>Ask me about builds, boss strategies, and game mechanics!</p>
+        <div class="chat-suggestions">
+            <button class="suggestion-btn" onclick="askQuestion('Recommend a strength build for a new player')">Strength Build</button>
+            <button class="suggestion-btn" onclick="askQuestion('What\'s a good mage build?')">Mage Build</button>
+            <button class="suggestion-btn" onclick="askQuestion('Best build for Malenia boss fight?')">Malenia Strategy</button>
+        </div>
     </div>
     <div class="chat-messages" id="chat-messages">
         <div class="message bot-message">
-            Hello! I'm your Elden Ring assistant. How can I help you today?
+            Greetings, Tarnished! I'm your Elden Ring build expert. How can I assist you today? You can ask me about:
+            • Build recommendations
+            • Boss strategies
+            • Weapon and armor choices
+            • Game mechanics
         </div>
     </div>
     <div class="chat-input-container">
-        <textarea id="chat-input" placeholder="Type your message here..." rows="1"></textarea>
+        <textarea id="chat-input" placeholder="Ask about Elden Ring builds and strategies..." rows="1"></textarea>
         <button id="send-button">Send</button>
     </div>
 </div>
@@ -74,6 +83,11 @@
             isWaitingForResponse = false;
             sendButton.disabled = false;
         }
+    }
+
+    function askQuestion(question) {
+        document.getElementById('chat-input').value = question;
+        sendMessage();
     }
 
     sendButton.addEventListener('click', sendMessage);

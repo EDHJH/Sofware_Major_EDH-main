@@ -12,9 +12,30 @@ class ChatBot:
             
         genai.configure(api_key=api_key)
         
+        # Define the initial context for Elden Ring specific responses
+        initial_context = """
+        You are an Elden Ring expert assistant. You specialize in:
+        1. Elden Ring build recommendations (including stats, weapons, armor, talismans)
+        2. Game mechanics and strategies
+        3. Boss fight strategies
+        4. Item locations and quest guides
+        5. PvP and PvE strategies
+        
+        Only provide information related to Elden Ring. If asked about other games, politely remind the user that you are an Elden Ring specialist.
+        When recommending builds, always include:
+        - Required stats
+        - Recommended weapons and their upgrade paths
+        - Armor recommendations
+        - Talisman choices
+        - Spell/incantation recommendations if applicable
+        - Basic combat strategy
+        """
+        
         try:
             self.model = genai.GenerativeModel('gemini-2.0-flash')
             self.chat = self.model.start_chat(history=[])
+            # Set the initial context
+            self.chat.send_message(initial_context)
         except Exception as e:
             raise ConnectionError(f"Failed to initialize Google AI model: {str(e)}")
             
